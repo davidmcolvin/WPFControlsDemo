@@ -20,7 +20,7 @@ namespace DemoLibrary.Models
 
     public string FullName
     {
-      get { return $"{FirstName} {LastName}"; }
+      get { return $"ID {PersonId} - {FirstName} {LastName}"; }
     }
 
   }

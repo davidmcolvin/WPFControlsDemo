@@ -15,13 +15,19 @@ namespace WPFDemoUI.ViewModels
 
     private PersonModel _selectedPerson;
 
+    public ShellViewModel()
+    {
+      DataAccess da = new DataAccess();
+      People = new BindableCollection<PersonModel>(da.GetPeople());
+    }
+
     public PersonModel SelectedPerson
     {
       get { return _selectedPerson; }
       set 
       { 
         _selectedPerson = value;
-        SelectedAddress = value.PrimaryAddress;
+        SelectedAddress = value?.PrimaryAddress;
         NotifyOfPropertyChange(() => SelectedPerson);
       }
     }
@@ -34,17 +40,46 @@ namespace WPFDemoUI.ViewModels
       set 
       { 
         _selectedAddress = value;
-        SelectedPerson.PrimaryAddress = value;
+        if (SelectedPerson != null)
+        {
+          SelectedPerson.PrimaryAddress = value;
+        }
         NotifyOfPropertyChange(() => SelectedAddress);
       }
     }
 
-
-    public ShellViewModel()
+    public void AddPerson()
     {
-      DataAccess da = new DataAccess();
-      People = new BindableCollection<PersonModel>(da.GetPeople());
+      int maxId = 0;
+      DataAccess dataAccess = new DataAccess();
+
+
+      if (People.Count > 0)
+      {
+        maxId = People.Max(x => x.PersonId); 
+      }
+
+      People.Add(dataAccess.GetPerson(maxId + 1));
+
     }
+
+    public void RemoveRandomPerson()
+    {
+      if (People.Count == 0)
+      {
+        return;
+      }
+
+      DataAccess dataAccess = new DataAccess();
+
+      PersonModel randomPerson = dataAccess.GetRandomItem(People.ToArray());
+
+      People.Remove(randomPerson);
+
+    }
+
+
+
 
   }
 }

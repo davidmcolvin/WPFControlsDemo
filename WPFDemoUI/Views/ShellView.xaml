@@ -11,6 +11,10 @@
       <RowDefinition Height="auto"/>
       <RowDefinition Height="auto"/>
       <RowDefinition Height="auto"/>
+      <RowDefinition Height="30"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
       <RowDefinition Height="auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
@@ -39,5 +43,28 @@
     </ComboBox>
 
     <TextBlock Grid.Row="2" x:Name="SelectedAddress_FullAddress"/>
+    <!--Grid.Row 3 is spacing-->
+    <StackPanel Orientation="Horizontal" Grid.Row="4">
+      <Button x:Name="AddPerson">Add New Person</Button>
+      <Button x:Name="RemoveRandomPerson">Remove Random Person</Button>
+    </StackPanel>
+    <ItemsControl ItemsSource="{Binding People}" Grid.Row="5">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Border BorderBrush="Black" BorderThickness="1" Margin="10" Padding="10">
+            <StackPanel Orientation="Vertical">
+              <TextBlock Text="{Binding FullName}" />
+              <TextBlock Text="{Binding AccountBalance}" />
+            </StackPanel>
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    
   </Grid>
 </Window>

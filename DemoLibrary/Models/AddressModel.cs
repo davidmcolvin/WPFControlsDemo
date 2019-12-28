@@ -16,7 +16,7 @@ namespace DemoLibrary.Models
 
     public string FullAddress
     {
-      get { return $"{StreetAddress}, {City}, {State} {ZipCode}"; }
+      get { return $"ID {AddressId} - {StreetAddress}, {City}, {State} {ZipCode}"; }
     }
 
   }

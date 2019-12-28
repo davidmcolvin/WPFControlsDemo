@@ -38,7 +38,7 @@ namespace DemoLibrary
       return output;
     }
 
-    private PersonModel GetPerson(int id)
+    public PersonModel GetPerson(int id)
     {
       PersonModel output = new PersonModel();
 
@@ -56,6 +56,8 @@ namespace DemoLibrary
       {
         output.Addresses.Add(GetAddress(((id - 1) * 5) + i + 1));
       }
+
+      output.PrimaryAddress = output.Addresses[0];
 
       return output;
     }
@@ -90,7 +92,7 @@ namespace DemoLibrary
       return lowEndDate.AddDays(rnd.Next(daysFromLowDate));
     }
 
-    private T GetRandomItem<T>(T[] data)
+    public T GetRandomItem<T>(T[] data)
     {
       return data[rnd.Next(0, data.Length)];
     }
