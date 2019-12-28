@@ -13,6 +13,33 @@ namespace WPFDemoUI.ViewModels
   {
     public BindableCollection<PersonModel> People { get; set; }
 
+    private PersonModel _selectedPerson;
+
+    public PersonModel SelectedPerson
+    {
+      get { return _selectedPerson; }
+      set 
+      { 
+        _selectedPerson = value;
+        SelectedAddress = value.PrimaryAddress;
+        NotifyOfPropertyChange(() => SelectedPerson);
+      }
+    }
+
+    private AddressModel _selectedAddress;
+
+    public AddressModel SelectedAddress
+    {
+      get { return _selectedAddress; }
+      set 
+      { 
+        _selectedAddress = value;
+        SelectedPerson.PrimaryAddress = value;
+        NotifyOfPropertyChange(() => SelectedAddress);
+      }
+    }
+
+
     public ShellViewModel()
     {
       DataAccess da = new DataAccess();
