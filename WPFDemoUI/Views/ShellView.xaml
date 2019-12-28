@@ -14,7 +14,7 @@
       <RowDefinition Height="30"/>
       <RowDefinition Height="auto"/>
       <RowDefinition Height="auto"/>
-      <RowDefinition Height="auto"/>
+      <RowDefinition Height="30"/>
       <RowDefinition Height="auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
@@ -44,20 +44,20 @@
 
     <TextBlock Grid.Row="2" x:Name="SelectedAddress_FullAddress"/>
     <!--Grid.Row 3 is spacing-->
-    <StackPanel Orientation="Horizontal" Grid.Row="4">
-      <Button x:Name="AddPerson">Add New Person</Button>
-      <Button x:Name="RemoveRandomPerson">Remove Random Person</Button>
+    <StackPanel Orientation="Horizontal" Grid.Row="4" >
+      <Button x:Name="AddPerson" Margin="10">Add New Person</Button>
+      <Button x:Name="RemoveRandomPerson" Margin="10">Remove Random Person</Button>
     </StackPanel>
     <ItemsControl ItemsSource="{Binding People}" Grid.Row="5">
       <ItemsControl.ItemsPanel>
         <ItemsPanelTemplate>
-          <WrapPanel />
+          <WrapPanel  />
         </ItemsPanelTemplate>
       </ItemsControl.ItemsPanel>
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <Border BorderBrush="Black" BorderThickness="1" Margin="10" Padding="10">
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Margin="10">
               <TextBlock Text="{Binding FullName}" />
               <TextBlock Text="{Binding AccountBalance}" />
             </StackPanel>
@@ -65,6 +65,7 @@
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
-    
+    <!--Grid.Row 6 is spacing-->
+    <DataGrid Grid.Row="7" ItemsSource="{Binding People}" Margin="10" AlternatingRowBackground="Gray" ></DataGrid>
   </Grid>
 </Window>
