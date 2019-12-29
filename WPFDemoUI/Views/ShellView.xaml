@@ -66,6 +66,46 @@
       </ItemsControl.ItemTemplate>
     </ItemsControl>
     <!--Grid.Row 6 is spacing-->
-    <DataGrid Grid.Row="7" ItemsSource="{Binding People}" Margin="10" AlternatingRowBackground="Gray" ></DataGrid>
+    <DataGrid Grid.Row="7" ItemsSource="{Binding People}" Margin="10" AlternatingRowBackground="Gray" 
+              CanUserAddRows="False" AutoGenerateColumns="False">
+      <DataGrid.Columns>
+        <!--Looks like you can do Binding PropertyName or Binding Path=IsAlive. Just demonstrating that below
+        Except CellTemplate with PrimaryAddress.FullAddress.  Didn't seem to work with Caliburn Micro but did not
+        try very hard to fix it-->
+        <DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" />
+        <DataGridCheckBoxColumn Header="Is Alive" Binding="{Binding Path=IsAlive}" />
+        <DataGridTemplateColumn Header="Primary Address">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Path=PrimaryAddress.FullAddress}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+          <DataGridTemplateColumn.CellEditingTemplate>
+            <DataTemplate>
+              <ComboBox ItemsSource="{Binding Addresses}" SelectedItem="{Binding PrimaryAddress}" >
+                <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding FullAddress}"/>
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellEditingTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Header="Birthday">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Path=DateOfBirth,StringFormat=d}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+          <DataGridTemplateColumn.CellEditingTemplate>
+            <DataTemplate>
+              <DatePicker SelectedDate="{Binding DateOfBirth}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellEditingTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+      
+    </DataGrid>
   </Grid>
 </Window>
